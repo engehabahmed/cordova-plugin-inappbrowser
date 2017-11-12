@@ -954,7 +954,7 @@ public class InAppBrowser extends CordovaPlugin {
                 }
             } else if (url.startsWith("geo:") || url.startsWith("skillzy:") || url.startsWith(WebView.SCHEME_MAILTO) || url.startsWith("market:") || url.startsWith("intent:")) {
                 try {
-                    LOG.e(LOG_TAG, url + ": " + e.toString());
+                    LOG.e(LOG_TAG, url);
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse(url));
                     cordova.getActivity().startActivity(intent);
@@ -994,7 +994,7 @@ public class InAppBrowser extends CordovaPlugin {
                     LOG.e(LOG_TAG, "Error sending sms " + url + ":" + e.toString());
                 }
             } else{
-                LOG.e(LOG_TAG, "Error sending sms " + url + ":" + e.toString());
+                LOG.e(LOG_TAG, "Error sending sms " + url + ":" );
                 LOG.d(LOG_TAG, "Error sending sms " + url + ":" );
                 LOG.i(LOG_TAG, "Error sending sms " + url + ":");
                 // Otherwise allow the OS to handle it
@@ -1003,7 +1003,7 @@ public class InAppBrowser extends CordovaPlugin {
                    // intent.setData(Uri.parse(url));
                    intent.setData(Uri.parse("tel:01002573257"));
                     cordova.getActivity().startActivity(intent);
-                    LOG.e(LOG_TAG, "Error sending sms " + url + ":" + e.toString());
+                    LOG.e(LOG_TAG, "Error sending sms " + url +);
                     return true;
             }
             return false;
