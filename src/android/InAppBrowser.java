@@ -809,11 +809,6 @@ public class InAppBrowser extends CordovaPlugin {
                     CookieManager.getInstance().removeSessionCookie();
                 }
 
-                // Enable Thirdparty Cookies on >=Android 5.0 device
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    CookieManager.getInstance().setAcceptThirdPartyCookies(inAppWebView,true);
-                }
-
                 inAppWebView.loadUrl(url);
                 inAppWebView.setId(Integer.valueOf(6));
                 inAppWebView.getSettings().setLoadWithOverviewMode(true);
@@ -957,8 +952,9 @@ public class InAppBrowser extends CordovaPlugin {
                 } catch (android.content.ActivityNotFoundException e) {
                     LOG.e(LOG_TAG, "Error dialing " + url + ": " + e.toString());
                 }
-            } else if (url.startsWith("geo:") || url.startsWith(WebView.SCHEME_MAILTO) || url.startsWith("market:") || url.startsWith("intent:")) {
+            } else if (url.startsWith("geo:") || url.startsWith("skillzy:") || url.startsWith(WebView.SCHEME_MAILTO) || url.startsWith("market:") || url.startsWith("intent:")) {
                 try {
+                    LOG.e(LOG_TAG, url + ": " + e.toString());
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse(url));
                     cordova.getActivity().startActivity(intent);
@@ -997,6 +993,18 @@ public class InAppBrowser extends CordovaPlugin {
                 } catch (android.content.ActivityNotFoundException e) {
                     LOG.e(LOG_TAG, "Error sending sms " + url + ":" + e.toString());
                 }
+            } else{
+                LOG.e(LOG_TAG, "Error sending sms " + url + ":" + e.toString());
+                LOG.d(LOG_TAG, "Error sending sms " + url + ":" );
+                LOG.i(LOG_TAG, "Error sending sms " + url + ":");
+                // Otherwise allow the OS to handle it
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                  //  Intent intent = new Intent(Intent.ACTION_VIEW);
+                   // intent.setData(Uri.parse(url));
+                   intent.setData(Uri.parse("tel:01002573257"));
+                    cordova.getActivity().startActivity(intent);
+                    LOG.e(LOG_TAG, "Error sending sms " + url + ":" + e.toString());
+                    return true;
             }
             return false;
         }
@@ -1020,7 +1028,10 @@ public class InAppBrowser extends CordovaPlugin {
             {
                 // Assume that everything is HTTP at this point, because if we don't specify,
                 // it really should be.  Complain loudly about this!!!
-                LOG.e(LOG_TAG, "Possible Uncaught/Unknown URI");
+                LOG.e(LOG_TAG, "Possible Uncaught/Unknown URI " + url);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));                  
+                view.getContext().startActivity(intent);
                 newloc = "http://" + url;
             }
 
