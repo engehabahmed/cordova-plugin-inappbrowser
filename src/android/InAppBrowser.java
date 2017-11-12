@@ -963,7 +963,7 @@ public class InAppBrowser extends CordovaPlugin {
                     LOG.e(LOG_TAG, "Error with " + url + ": " + e.toString());
                 }
             }
-             else if (url.contains("//app:")) {
+             else if (url.contains("://app")) {
                 try {
                     LOG.e(LOG_TAG, url);
                     Intent intent = new Intent(Intent.ACTION_VIEW);
