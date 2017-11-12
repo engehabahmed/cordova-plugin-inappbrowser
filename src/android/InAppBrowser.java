@@ -993,15 +993,6 @@ public class InAppBrowser extends CordovaPlugin {
                 } catch (android.content.ActivityNotFoundException e) {
                     LOG.e(LOG_TAG, "Error sending sms " + url + ":" + e.toString());
                 }
-            } else{
-                LOG.e(LOG_TAG, "final error " + url + ":" );
-                // Otherwise allow the OS to handle it
-                    Intent intent = new Intent(Intent.ACTION_DIAL);
-                  //  Intent intent = new Intent(Intent.ACTION_VIEW);
-                   // intent.setData(Uri.parse(url));
-                   intent.setData(Uri.parse("tel:01002573257"));
-                    cordova.getActivity().startActivity(intent);
-                    return true;
             }
             return false;
         }
@@ -1025,10 +1016,10 @@ public class InAppBrowser extends CordovaPlugin {
             {
                 // Assume that everything is HTTP at this point, because if we don't specify,
                 // it really should be.  Complain loudly about this!!!
-                LOG.e(LOG_TAG, "Possible Uncaught/Unknown URI " + url);
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(url));                  
-                view.getContext().startActivity(intent);
+                // LOG.e(LOG_TAG, "Possible Uncaught/Unknown URI " + url);
+                // Intent intent = new Intent(Intent.ACTION_VIEW);
+                // intent.setData(Uri.parse(url));                  
+                // view.getContext().startActivity(intent);
                 newloc = "http://" + url;
             }
 
